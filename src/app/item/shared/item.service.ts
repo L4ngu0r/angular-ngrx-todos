@@ -7,10 +7,11 @@ import {AppStore} from "../../app.store";
 import * as fromActionItem from './item.action';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class ItemsService {
-  BASE_URL = 'http://localhost:9001/todo';
+  BASE_URL = `${environment.API_URL}/todo`;
   HEADER = {headers: new Headers({'Content-Type': 'application/json'})};
 
   constructor(private http: Http, private store: Store<AppStore>) {
