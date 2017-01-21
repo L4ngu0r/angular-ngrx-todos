@@ -1,3 +1,10 @@
-<h1>
-  {{title}}
-</h1>
+<div class="mdl-cell mdl-cell--6-col">
+  <app-item-list [items]="items"
+              (selected)="selectItem($event)" (deleted)="deleteItem($event)">
+  </app-item-list>
+</div>
+<div class="mdl-cell mdl-cell--6-col">
+  <app-item
+          (saved)="saveItem($event)" (cancelled)="resetItem($event)"
+          [item]="selectedItem">Select an Item</app-item>
+</div>
