@@ -36,7 +36,7 @@ export class AppComponent implements OnInit{
     );
   }
 
-  resetItem() {
+  resetItem(item: Item) {
     let emptyItem: Item = {id: null, name: '', description: '', timestamp: null};
     this.store.dispatch(new fromActionItem.selectItemAction(emptyItem));
   }
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit{
 
   saveItem(item: Item) {
     this.itemsService.saveItem(item);
-    this.resetItem();
+    this.resetItem(null);
   }
 
   deleteItem(item: Item) {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit{
         console.log('DELETE ITEM');
         console.log(res);
         this.store.dispatch(new fromActionItem.deleteItemAction(item));
-        this.resetItem();
+        this.resetItem(null);
       }
     );
   }
