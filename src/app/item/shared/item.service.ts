@@ -14,8 +14,7 @@ export class ItemsService {
   BASE_URL = `${environment.API_URL}/todo`;
   HEADER = {headers: new Headers({'Content-Type': 'application/json'})};
 
-  constructor(private http: Http, private store: Store<AppStore>) {
-  }
+  constructor(private http: Http, private store: Store<AppStore>) {}
 
   loadItems() {
     return this.http.get(this.BASE_URL)
@@ -26,23 +25,15 @@ export class ItemsService {
   }
 
   saveItem(item: Item) {
-    console.log('SAVE-ITEM SERVICE');
     if(!item.timestamp){
       item.timestamp = new Date().getTime();
     }
-    console.log(typeof item.id === 'number');
-    console.log(item.id !== null && item.id !== undefined);
+
     if(typeof item.id === 'number' || (item.id !== null && item.id !== undefined)) {
-      console.log('>>>>>>> update item');
       this.updateItem(item).subscribe(
-        res => {
-          console.log('item updated');
-          console.log(res);
-          this.store.dispatch(new fromActionItem.updateItemAction(res));
-        }
+        res => this.store.dispatch(new fromActionItem.updateItemAction(res))
       );
     }else{
-      console.log('>>>>>>> create item');
       item.id = (Math.random() * 10).toString(32);
       this.store.select('items').take(1).subscribe(
         (state:any) => {
@@ -51,11 +42,7 @@ export class ItemsService {
         }
       );
       this.createItem(item).subscribe(
-        res => {
-          console.log('SAVE ITEM');
-          console.log(res);
-          this.store.dispatch(new fromActionItem.createItemAction(item));
-        }
+        res => this.store.dispatch(new fromActionItem.createItemAction(item))
       );
     }
   }

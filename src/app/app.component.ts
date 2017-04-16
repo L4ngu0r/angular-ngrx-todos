@@ -19,7 +19,6 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log('ngOnIinit');
     this.itemsService.loadItems().subscribe(
       res => {
         this.store.dispatch(new fromActionItem.addItemsAction(res));
@@ -28,8 +27,6 @@ export class AppComponent implements OnInit{
 
     this.store.select('items').subscribe(
       (its:any) => {
-        console.log('SELECT ITEMS');
-        console.log(its);
         this.items = its.items ? its.items : [];
         this.selectedItem = its.selectedItem ? its.selectedItem : null;
       }
