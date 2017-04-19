@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "test": "ng test",
+    "test": "ng test --watch false",
     "e2e": "ng e2e",
     "build": "ng build",
     "lint": "ng lint"
