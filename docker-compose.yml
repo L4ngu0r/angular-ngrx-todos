@@ -1,0 +1,9 @@
+version: '2'
+services:
+  redis:
+    image: "redis:latest"
+  back-node-redis:
+    image: "languor/back-node-redis:latest"
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
