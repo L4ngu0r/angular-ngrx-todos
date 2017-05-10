@@ -27,13 +27,13 @@ export class AppComponent implements OnInit{
 
     this.store.select('items').subscribe(
       (its:any) => {
-        this.items = its.items ? its.items : [];
-        this.selectedItem = its.selectedItem ? its.selectedItem : null;
+        this.items = its && its.items ? its.items : [];
+        this.selectedItem = its && its.selectedItem ? its.selectedItem : null;
       }
     );
   }
 
-  resetItem(item: Item) {
+  resetItem() {
     let emptyItem: Item = {id: null, name: '', description: '', timestamp: null};
     this.store.dispatch(new fromActionItem.selectItemAction(emptyItem));
   }
@@ -44,16 +44,14 @@ export class AppComponent implements OnInit{
 
   saveItem(item: Item) {
     this.itemsService.saveItem(item);
-    this.resetItem(null);
+    this.resetItem();
   }
 
   deleteItem(item: Item) {
     this.itemsService.deleteItem(item).subscribe(
       res => {
-        console.log('DELETE ITEM');
-        console.log(res);
         this.store.dispatch(new fromActionItem.deleteItemAction(item));
-        this.resetItem(null);
+        this.resetItem();
       }
     );
   }
